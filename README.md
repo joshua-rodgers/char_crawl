@@ -3,4 +3,5 @@ simple game inspired by rogue. experimenting to see how much fun can be had with
 
 ## first test demo
 basic movement implemented. maybe let's collect some coins next?
+
 ![gif of game board and character mving around](demo1.gif)
