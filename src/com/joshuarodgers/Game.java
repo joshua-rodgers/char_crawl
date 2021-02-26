@@ -1,6 +1,7 @@
 package com.joshuarodgers;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
 
 public class Game {
     Frame frame;
@@ -73,14 +74,18 @@ public class Game {
 }
 
 class Game_Model extends KeyAdapter {
-    char[][] board;
+    //char[][] board;
+    StringBuilder[] board;
     Game_Char[][] map;
     Hero player;
+    ArrayList<Integer> modified;
 
     public Game_Model(int size){
-        board = new char[size][size];
+        //board = new char[size][size];
+        board = new StringBuilder[size];
         map = new Game_Char[size][size];
         player = new Hero(18, 18);
+        modified = new ArrayList<Integer>();
     }
 
     public void init(){
@@ -88,13 +93,16 @@ class Game_Model extends KeyAdapter {
             for(int col = 0;col < map[row].length; col++){
                 if(row == 0 || row == map.length - 1){
                     map[row][col] = new Wall(row, col);
-                    board[row][col] = map[row][col].glyph;
+                    //board[row][col] = map[row][col].glyph;
+                    modified.add(row);
                 }else if(col == 0 || col == map[row].length - 1){
                     map[row][col] = new Wall(row, col);
-                    board[row][col] = map[row][col].glyph;
+                    //board[row][col] = map[row][col].glyph;
+                    modified.add(row);
                 }else{
                     map[row][col] = null;
-                    board[row][col] = ' ';
+                    //board[row][col] = ' ';
+                    modified.add(row);
                 }
             }
         }
@@ -104,7 +112,7 @@ class Game_Model extends KeyAdapter {
     public void update_board(){
         for(Game_Char[] row:map){
             for(Game_Char current:row){
-                
+                board.append(current.glyph);
             }
         }
     }
