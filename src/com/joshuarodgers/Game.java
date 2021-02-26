@@ -12,7 +12,7 @@ public class Game {
     Font font;
 
     public Game(){
-        data = new Game_Model();
+        data = new Game_Model(20);
         data.init();
         frame = new Frame();
         frame.setSize(500, 500);
@@ -74,32 +74,43 @@ public class Game {
 
 class Game_Model extends KeyAdapter {
     char[][] board;
-    Game_Char player;
+    Game_Char[][] map;
+    Hero player;
 
-    public Game_Model(){
-        board = new char[20][20];
-        player = new Game_Char(18, 18);
+    public Game_Model(int size){
+        board = new char[size][size];
+        map = new Game_Char[size][size];
+        player = new Hero(18, 18);
     }
 
     public void init(){
-        for(int row = 0;row < board.length; row++){
-            for(int col = 0;col < board[0].length; col++){
-                if(row == 0 || row == board.length - 1){
-                    board[row][col] = 'X';
-                }else if(col == 0 || col == board[0].length - 1){
-                    board[row][col] = 'X';
+        for(int row = 0;row < map.length; row++){
+            for(int col = 0;col < map[row].length; col++){
+                if(row == 0 || row == map.length - 1){
+                    map[row][col] = new Wall(row, col);
+                    board[row][col] = map[row][col].glyph;
+                }else if(col == 0 || col == map[row].length - 1){
+                    map[row][col] = new Wall(row, col);
+                    board[row][col] = map[row][col].glyph;
                 }else{
+                    map[row][col] = null;
                     board[row][col] = ' ';
                 }
             }
         }
-        board[player.location.row][player.location.column] = '@';
+        map[player.location.row][player.location.column] = player;
+    }
+
+    public void update_board(){
+        for(Game_Char[] row:map){
+            for(Game_Char current:row){
+                
+            }
+        }
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        // TODO Auto-generated method stub
-        //super.keyPressed(e);
         int pressed = e.getKeyCode();
         switch(pressed){
             case 37:
@@ -125,28 +136,28 @@ class Game_Model extends KeyAdapter {
                 if(player.location.column > 1){
                     board[player.location.row][player.location.column] = ' ';
                     player.location.column--;
-                    board[player.location.row][player.location.column] = '@';
+                    board[player.location.row][player.location.column] = player.glyph;
                 }
                 break;
             case "UP":
                 if(player.location.row > 1){
                     board[player.location.row][player.location.column] = ' ';
                     player.location.row--;
-                    board[player.location.row][player.location.column] = '@';
+                    board[player.location.row][player.location.column] = player.glyph;
                 }
                 break;
             case "RIGHT":
                 if(player.location.column < board[player.location.row].length - 2){
                     board[player.location.row][player.location.column] = ' ';
                     player.location.column++;
-                    board[player.location.row][player.location.column] = '@';
+                    board[player.location.row][player.location.column] = player.glyph;
                 }
                 break;
             case "DOWN":
                 if(player.location.row < board.length - 2){
                     board[player.location.row][player.location.column] = ' ';
                     player.location.row++;
-                    board[player.location.row][player.location.column] = '@';
+                    board[player.location.row][player.location.column] = player.glyph;
                 }
                 break;
             default:
@@ -156,13 +167,34 @@ class Game_Model extends KeyAdapter {
 
 class Game_Char {
     Position location;
+    char glyph;
 
-    public Game_Char(int r, int c){
-        this.location = new Position(r, c);
+    public Game_Char(int row, int col, char glyph){
+        this.location = new Position(row, col);
+        this.glyph = glyph;
+    }   
+}
+
+class Hero extends Game_Char {
+    int energy;
+    int gold;
+
+    public Hero(int row, int col) {
+        super(row, col, '@');
+        energy = 100;
+        gold = 0;
     }
 
+}
+
+class Wall extends Game_Char {
+
+    public Wall(int row, int col) {
+        super(row, col, 'X');
+    }
     
 }
+
 
 class Position {
     int row;
