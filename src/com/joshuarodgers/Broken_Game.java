@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-public class Game {
+public class Broken_Game {
     Frame frame;
     Panel surface;
     Image buffer;
@@ -38,14 +38,15 @@ public class Game {
     }
 
     public void render(){
+        data.update_board();
         buffer_context.clearRect(0, 0, surface.getWidth(), surface.getHeight());
-        String line;
+        //String line;
         int x_position = (int)Math.floor((frame.getWidth() / 2) - ((buffer_context.getFont().getSize() * 0.6) * 10)); 
         int y_position = (int)Math.floor((frame.getHeight() / 2) - (buffer_context.getFont().getSize() * 10)); 
         
-        for(char[] row:data.board){
-            line = new String(row);
-            buffer_context.drawString(line, x_position, y_position);
+        for(StringBuilder row:data.board){
+            
+            buffer_context.drawString(row.toString(), x_position, y_position);
             y_position += 20;
         }
         
@@ -110,9 +111,15 @@ class Game_Model extends KeyAdapter {
     }
 
     public void update_board(){
-        for(Game_Char[] row:map){
-            for(Game_Char current:row){
-                board.append(current.glyph);
+        for(int row = 0;row < map.length; row++){
+            board[row] = new StringBuilder();
+            for(int col = 0;col < map[row].length; col++){
+                if(map[row][col] == null){
+                    board[row].append(' ');
+                }else{
+                    board[row].append(map[row][col].glyph);
+                }
+                
             }
         }
     }
@@ -142,30 +149,30 @@ class Game_Model extends KeyAdapter {
         switch(dir){
             case "LEFT":
                 if(player.location.column > 1){
-                    board[player.location.row][player.location.column] = ' ';
+                    //board[player.location.row][player.location.column] = ' ';
                     player.location.column--;
-                    board[player.location.row][player.location.column] = player.glyph;
+                    //board[player.location.row][player.location.column] = player.glyph;
                 }
                 break;
             case "UP":
                 if(player.location.row > 1){
-                    board[player.location.row][player.location.column] = ' ';
+                    //board[player.location.row][player.location.column] = ' ';
                     player.location.row--;
-                    board[player.location.row][player.location.column] = player.glyph;
+                    //board[player.location.row][player.location.column] = player.glyph;
                 }
                 break;
             case "RIGHT":
-                if(player.location.column < board[player.location.row].length - 2){
-                    board[player.location.row][player.location.column] = ' ';
+                if(player.location.column < board.length - 2){
+                    //board[player.location.row][player.location.column] = ' ';
                     player.location.column++;
-                    board[player.location.row][player.location.column] = player.glyph;
+                    //board[player.location.row][player.location.column] = player.glyph;
                 }
                 break;
             case "DOWN":
                 if(player.location.row < board.length - 2){
-                    board[player.location.row][player.location.column] = ' ';
+                    //board[player.location.row][player.location.column] = ' ';
                     player.location.row++;
-                    board[player.location.row][player.location.column] = player.glyph;
+                    //board[player.location.row][player.location.column] = player.glyph;
                 }
                 break;
             default:
@@ -195,7 +202,7 @@ class Hero extends Game_Char {
 
 }
 
-class Wall extends Game_Char {
+class Walls extends Game_Char {
 
     public Wall(int row, int col) {
         super(row, col, 'X');
