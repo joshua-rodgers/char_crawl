@@ -13,17 +13,28 @@ public class Game2 extends KeyAdapter{
     Graphics panel_ctx;
     Graphics img_ctx;
     Font font;
+    int size;
+    Resize_Trigger resizer;
+    boolean resized;
+    int frame_width;
+    int frame_height;
+    int font_size;
 
     public Game2 (int size){
         board = new char[size][size];
         map = new Gamepiece[size][size];
         player = new Player(map);
-        //pieces = new Gamepiece[size ^ 2];
         
-
+        this.resizer = new Resize_Trigger(this);
+        resized = false;
+        this.size = size;
+        frame_width = size * (size + 2);
+        frame_height = size * (size + 2);
+ 
         frame = new Frame();
         panel = new Panel();
-        frame.setSize(size * (size + 1), size * (size + 1));
+        frame.setSize(frame_width, frame_height);
+        frame.setBackground(Color.BLACK);
         panel.setSize(frame.getSize());
         panel.setPreferredSize(frame.getSize());
         frame.addKeyListener(this);
@@ -32,6 +43,7 @@ public class Game2 extends KeyAdapter{
                 System.exit(0);
             }
         });
+        frame.addComponentListener(resizer);
         frame.add(panel);
         frame.pack();
         frame.setVisible(true);
@@ -39,11 +51,14 @@ public class Game2 extends KeyAdapter{
     }
 
     public void init(){
+        
         panel_ctx = panel.getGraphics();
         buffer = panel.createImage(frame.getWidth(), frame.getHeight());
         img_ctx = buffer.getGraphics();
-        font = new Font("monospaced", 1, 20);
+        font_size = 20;
+        font = new Font("monospaced", 1, font_size);
         img_ctx.setFont(font);
+        img_ctx.setColor(Color.WHITE);
 
         for(int row = 0; row < map.length; row++){
             for(int col = 0; col < map[row].length; col++){
@@ -57,14 +72,17 @@ public class Game2 extends KeyAdapter{
             }
         }
         map[player.row][player.col] = player;
+        map[9][12] = new Coin(9, 12, map);
+        map[16][4] = new Coin(16, 4, map);
     }
 
     public void render(){
-        int y = 40;
+        int x = (frame_width / 2) - ((int)(font_size * 0.6) * (size / 2));
+        int y = (frame_height / 2) - (font_size * (size / 2));;
         update();
         img_ctx.clearRect(0, 0, frame.getWidth(), frame.getHeight());
         for(char[] row:board){
-            img_ctx.drawString(new String(row), 40, y);
+            img_ctx.drawString(new String(row), x, y);
             y += 20;
         }
         panel_ctx.drawImage(buffer, 0, 0, null);
@@ -81,6 +99,13 @@ public class Game2 extends KeyAdapter{
                 
             }
         }
+    }
+
+    public void size_recalc(){
+        System.out.println("triggered");
+        this.frame_width = frame.getWidth();
+        this.frame_height = frame.getHeight();
+        resized = true;
     }
 
     public void run(){
@@ -122,6 +147,17 @@ public class Game2 extends KeyAdapter{
     }
 }
 
+class Resize_Trigger extends ComponentAdapter{
+    Game2 game;
+    public Resize_Trigger(Game2 game){
+        this.game = game;
+    }
+    @Override
+    public void componentResized(ComponentEvent e) {
+        game.size_recalc();
+    }
+}
+
 abstract class Gamepiece {
     int row;
     int col;
@@ -132,21 +168,45 @@ abstract class Gamepiece {
     public void move(String direction){}
 }
 
+interface Game_Item{
+    public void collected(Player collector);
+}
+
 class Player extends Gamepiece{
+    int energy;
+    int gold;
     public Player(Gamepiece[][] map){
         this.row = 18;
         this.col = 18;
         this.glyph = '@';
         this.map = map;
+
+        this.energy = 100;
+        this.gold = 0;
     }
 
     public boolean check(int row, int col){
         Gamepiece tested = map[row][col];
-        if(tested == null || tested.mobile){
+        if(tested == null){
             return true;
-        }else{
-            return false;
         }
+
+        switch(tested.glyph){
+            case 'X':
+                if(tested.mobile){
+                    return true;
+                }else{
+                    return false;
+                }
+                
+            case 'c':
+                collect((Game_Item)tested);
+                return true;
+            default:
+                return false;
+        }
+
+
     }
 
     @Override
@@ -189,6 +249,10 @@ class Player extends Gamepiece{
             default:
         }
     }
+
+    public void collect(Game_Item item){
+        item.collected(this);
+    }
 }
 
 class Wall extends Gamepiece{
@@ -198,6 +262,31 @@ class Wall extends Gamepiece{
         this.col = col;
         this.glyph = 'X';
         this.map = map;
+    }
+}
+
+class Coin extends Gamepiece implements Game_Item{
+    
+    public Coin(int row, int col, Gamepiece[][] map){
+        this.row = row;
+        this.col = col;
+        this.glyph = 'c';
+        this.map = map;
+    }
+    
+    @Override
+    public void collected(Player collector) {
+        collector.gold += 10;
+        System.out.println("Collected 10 gold!");
+        System.out.println(collector.gold);
+        Coin me = this;
+        map[row][col] = null;
+    }
+
+    public void collected(Gamepiece collector){
+        //collector.gold += 10;
+        Coin me = this;
+        map[row][col] = null;
     }
 }
 
