@@ -14,18 +14,24 @@ public class Game2 extends KeyAdapter{
     Graphics img_ctx;
     Font font;
 
-    public Game2(int size){
+    public Game2 (int size){
         board = new char[size][size];
         map = new Gamepiece[size][size];
         player = new Player(map);
         //pieces = new Gamepiece[size ^ 2];
         
+
         frame = new Frame();
         panel = new Panel();
         frame.setSize(size * (size + 1), size * (size + 1));
         panel.setSize(frame.getSize());
         panel.setPreferredSize(frame.getSize());
         frame.addKeyListener(this);
+        frame.addWindowListener(new WindowAdapter(){
+            public void windowClosing(WindowEvent e){
+                System.exit(0);
+            }
+        });
         frame.add(panel);
         frame.pack();
         frame.setVisible(true);
@@ -81,7 +87,7 @@ public class Game2 extends KeyAdapter{
         while(true){
             try{
                 render();
-                Thread.sleep(500);
+                Thread.sleep(100);
             }catch(Exception ex){
                 System.out.println(ex.getMessage());
                 break;
@@ -120,6 +126,7 @@ abstract class Gamepiece {
     int row;
     int col;
     char glyph;
+    boolean mobile;
     Gamepiece[][] map;
 
     public void move(String direction){}
@@ -133,33 +140,51 @@ class Player extends Gamepiece{
         this.map = map;
     }
 
+    public boolean check(int row, int col){
+        Gamepiece tested = map[row][col];
+        if(tested == null || tested.mobile){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     @Override
     public void move(String direction) {
         Gamepiece me;
         switch(direction){
             case "left":
-                me = this;
-                map[this.row][this.col] = null;
-                this.col--;
-                map[this.row][this.col] = me;
+                if(check(this.row, this.col - 1)){
+                    me = this;
+                    map[this.row][this.col] = null;
+                    this.col--;
+                    map[this.row][this.col] = me;
+                }
+                
                 break;
             case "up":
-                me = this;
-                map[this.row][this.col] = null;
-                this.row--;
-                map[this.row][this.col] = me;
+                if(check(this.row - 1, this.col)){
+                    me = this;
+                    map[this.row][this.col] = null;
+                    this.row--;
+                    map[this.row][this.col] = me;
+                }
                 break;
             case "right":
-                me = this;
-                map[this.row][this.col] = null;
-                this.col++;
-                map[this.row][this.col] = me;
+                if(check(this.row, this.col + 1)){
+                    me = this;
+                    map[this.row][this.col] = null;
+                    this.col++;
+                    map[this.row][this.col] = me;
+                }
                 break;
             case "down":
-                me = this;
-                map[this.row][this.col] = null;
-                this.row++;
-                map[this.row][this.col] = me;
+                if(check(this.row + 1, this.col)){
+                    me = this;
+                    map[this.row][this.col] = null;
+                    this.row++;
+                    map[this.row][this.col] = me;
+                }
                 break;
             default:
         }
@@ -168,6 +193,7 @@ class Player extends Gamepiece{
 
 class Wall extends Gamepiece{
     public Wall(int row, int col, Gamepiece[][] map){
+        this.mobile = false;
         this.row = row;
         this.col = col;
         this.glyph = 'X';
