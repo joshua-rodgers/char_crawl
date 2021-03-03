@@ -1,0 +1,27 @@
+package com.joshuarodgers;
+
+public class unused {
+
+    private void load_screen(int pcnt_done){
+        int full_bar_size = 200;
+        double temp = full_bar_size * (pcnt_done / 100.0);
+        int progress_size = (int)temp;
+
+        int bar_x = ((frame.getWidth() / 2) - (full_bar_size / 2));
+        int bar_y = (frame.getHeight() / 2);
+        int bar_height = 40;
+        try{
+            Thread.sleep(1000);
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        img_ctx.clearRect(0, 0, frame.getWidth(), frame.getHeight());
+        img_ctx.fillRect(bar_x, bar_y, progress_size, bar_height);
+        img_ctx.drawString("loading..." + pcnt_done + "%", bar_x, bar_y + bar_height * 2);
+
+        if(pcnt_done == 100){
+            is_loaded = true;
+        }
+    }
+
+}

@@ -1,12 +1,16 @@
 package com.joshuarodgers;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Random;
 
 public class Game2 extends KeyAdapter{
-    char[][] board;
-    Gamepiece [][] map;
+    char[][] current_board;
+    Gamepiece[][][] dungeon;
+    Gamepiece [][] current_map;
     Player player;
     Gamepiece[] pieces;
+    Random randu;
+    final int dungeon_size;
     Frame frame;
     Panel panel;
     Image buffer;
@@ -21,10 +25,11 @@ public class Game2 extends KeyAdapter{
     int font_size;
 
     public Game2 (int size){
-        board = new char[size][size];
-        map = new Gamepiece[size][size];
-        player = new Player(map);
-        
+        randu = new Random();
+        dungeon_size = get_random(size);
+        dungeon = new Gamepiece[dungeon_size][][];
+        init_world(size);
+
         this.resizer = new Resize_Trigger(this);
         resized = false;
         this.size = size;
@@ -48,11 +53,10 @@ public class Game2 extends KeyAdapter{
         frame.add(panel);
         frame.pack();
         frame.setVisible(true);
-        init();
+        init_graphics();
     }
 
-    public void init(){
-        
+    public void init_graphics(){
         panel_ctx = panel.getGraphics();
         buffer = panel.createImage(panel.getMaximumSize().width, panel.getMaximumSize().height);
         img_ctx = buffer.getGraphics();
@@ -60,21 +64,41 @@ public class Game2 extends KeyAdapter{
         font = new Font("monospaced", 1, font_size);
         img_ctx.setFont(font);
         img_ctx.setColor(Color.WHITE);
+    }
+    
+    private int get_random(int limit){
+        return randu.nextInt(limit + 1);
+    }
 
-        for(int row = 0; row < map.length; row++){
-            for(int col = 0; col < map[row].length; col++){
-                if(row == 0 || row == map.length - 1){
-                    map[row][col] = new Wall(row, col, map);
-                }else if(col == 0 || col == map[row].length - 1){
-                    map[row][col] = new Wall(row, col, map);
+    private int get_random(int min, int max){
+        return (int) ((Math.random() * (max - min)) + min);
+    }
+
+    private void init_world(int limit){
+        for(var room = 0; room < dungeon.length; room++){
+            dungeon[room] = new Gamepiece[get_random(4, limit)][get_random(4, limit)];
+        }
+        Gamepiece[][] first_room = dungeon[0];
+        current_board = new char[first_room.length][first_room[0].length];
+        
+        current_map = first_room;
+        player = new Player(current_map);
+
+
+        for(int row = 0; row < current_map.length; row++){
+            for(int col = 0; col < current_map[row].length; col++){
+                if(row == 0 || row == current_map.length - 1){
+                    current_map[row][col] = new Wall(row, col, current_map);
+                }else if(col == 0 || col == current_map[row].length - 1){
+                    current_map[row][col] = new Wall(row, col, current_map);
                 }else{
-                    map[row][col] = null;
+                    current_map[row][col] = null;
                 }
             }
         }
-        map[player.row][player.col] = player;
-        map[9][12] = new Coin(9, 12, map);
-        map[16][4] = new Coin(16, 4, map);
+        current_map[player.row][player.col] = player;
+        //current_map[9][12] = new Coin(9, 12, current_map);
+        //current_map[16][4] = new Coin(16, 4, current_map);
     }
 
     public void render(){
@@ -82,7 +106,7 @@ public class Game2 extends KeyAdapter{
         int y = (frame_height / 2) - (font_size * (size / 2));
         update();
         img_ctx.clearRect(0, 0, frame.getWidth(), frame.getHeight());
-        for(char[] row:board){
+        for(char[] row:current_board){
             img_ctx.drawString(new String(row), x, y);
             y += 20;
         }
@@ -90,12 +114,12 @@ public class Game2 extends KeyAdapter{
     }
 
     public void update(){
-        for(int row = 0; row < map.length; row++){
-            for(int col = 0; col < map[row].length; col++){
-                if(map[row][col] == null){
-                    board[row][col] = ' ';
+        for(int row = 0; row < current_map.length; row++){
+            for(int col = 0; col < current_map[row].length; col++){
+                if(current_map[row][col] == null){
+                    current_board[row][col] = ' ';
                 }else{
-                    board[row][col] = map[row][col].glyph;
+                    current_board[row][col] = current_map[row][col].glyph;
                 }
             }
         }
@@ -174,8 +198,8 @@ class Player extends Gamepiece{
     int energy;
     int gold;
     public Player(Gamepiece[][] map){
-        this.row = 18;
-        this.col = 18;
+        this.row = map.length - 2;
+        this.col = map[0].length - 2;
         this.glyph = '@';
         this.map = map;
 
@@ -285,6 +309,29 @@ class Coin extends Gamepiece implements Game_Item{
         //collector.gold += 10;
         Coin me = this;
         map[row][col] = null;
+    }
+}
+
+class Door extends Gamepiece{
+    boolean is_locked;
+    public Door(int row, int col, Gamepiece[][] map, boolean is_locked){
+        this.row = row;
+        this.col = col;
+        this.map = map;
+        this.is_locked = is_locked;
+        mobile = false;
+
+        if(is_locked){
+            this.glyph = '|';
+        }else{
+            this.glyph = '_';
+        }
+    }
+
+    public void use_door(Player player){
+        if(is_locked){
+
+        }
     }
 }
 
