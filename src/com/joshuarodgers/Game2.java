@@ -147,6 +147,11 @@ public class Game2 extends KeyAdapter{
     public void keyPressed(KeyEvent e) {
         int pressed = e.getKeyCode();
         switch(pressed){
+            
+            case 32:
+            // test case for generating rooms on the fly
+                init_world(dungeon_size);
+                break;
             case 37:
                 player.move("left");
                 break;
