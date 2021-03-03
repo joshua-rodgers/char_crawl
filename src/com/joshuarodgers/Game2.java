@@ -37,6 +37,7 @@ public class Game2 extends KeyAdapter{
         frame.setBackground(Color.BLACK);
         panel.setSize(frame.getSize());
         panel.setPreferredSize(frame.getSize());
+        panel.setMaximumSize(new Dimension(1000, 1000));
         frame.addKeyListener(this);
         frame.addWindowListener(new WindowAdapter(){
             public void windowClosing(WindowEvent e){
@@ -53,7 +54,7 @@ public class Game2 extends KeyAdapter{
     public void init(){
         
         panel_ctx = panel.getGraphics();
-        buffer = panel.createImage(frame.getWidth(), frame.getHeight());
+        buffer = panel.createImage(panel.getMaximumSize().width, panel.getMaximumSize().height);
         img_ctx = buffer.getGraphics();
         font_size = 20;
         font = new Font("monospaced", 1, font_size);
@@ -78,7 +79,7 @@ public class Game2 extends KeyAdapter{
 
     public void render(){
         int x = (frame_width / 2) - ((int)(font_size * 0.6) * (size / 2));
-        int y = (frame_height / 2) - (font_size * (size / 2));;
+        int y = (frame_height / 2) - (font_size * (size / 2));
         update();
         img_ctx.clearRect(0, 0, frame.getWidth(), frame.getHeight());
         for(char[] row:board){
@@ -96,16 +97,13 @@ public class Game2 extends KeyAdapter{
                 }else{
                     board[row][col] = map[row][col].glyph;
                 }
-                
             }
         }
     }
 
     public void size_recalc(){
-        System.out.println("triggered");
         this.frame_width = frame.getWidth();
         this.frame_height = frame.getHeight();
-        resized = true;
     }
 
     public void run(){
