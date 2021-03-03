@@ -33,3 +33,22 @@ way. after adding the messages, i think i need to tackle random item generation 
 figure out what i want the game to look like. do i want there to be scrolling of some sort? do i want there to be doors that load new rooms when you walk through them?
 i'm leaning that way because as the name of this repo suggests, there is the spirit of a dungeon crawler here. the though of that is exciting. perhaps i need to start 
 thinking of enemies first?
+
+i hate this crap; i am insane. i love this, i am beautiful.
+
+![gif of game board and character moving around as map is randomly regenerated](demo4.gif)
+
+so this is getting deeper now. i went around youtube watching gameplay of legit roguelikes and decided to go ahead and go for some legitimacy and add some random generation 
+features. so i restructured the game a bit: the "world" is now composed of a dungeon made up of randomly generated rooms. the number of rooms in the dungeon is randomly 
+decided when the game class is instantiated with a limit passed in that sets the max number of rooms. right now this limit also acts as the limit of the size of the rooms, 
+though i'm pretty sure that will change as i want to ensure diversity in the room sizes. ive defined two different random number generator methods (both subject to the will 
+and whim of Randu (check out _the friendly orange glow_ by brian dear)), one for use regular in-game interactions when the range isnt important, and the other with the option 
+to set a min and max that i'm using right now to make sure the rooms aren't too small to move around. i wired up the spacebar to re-init the dungeon for testing purposes for 
+the next challenge, which is placing doors and ensuring that movement between rooms is possible and that the map remains consistent. 
+
+i count today as a special day for me along my little programming journey. today i ventured out into the wider world of github and looked at another project for ideas. this 
+is a big deal for me as i've never done that before for a couple of reasons: 1. most projects on github are fairly large and use build systems im not familiar enough with 
+to be able to find the entry point of the code to make any sense of the project in a reasonable amount of time. 2. because looking at other people's code always felt like 
+"cheating" because of this self-conciousness i used to have at being a __n00b__. thing is, i dont care about other people anymore. ive found my own groove. ill probably 
+never be a pro dev, and that's cool. i find little opportunities to write scripts in my job in IT when i feel like it. so to me being able to look to other projects for 
+help in figuring out a tough problem is a sign of growth. 
