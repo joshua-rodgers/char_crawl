@@ -2,4 +2,5 @@
 *.class
 *.bat
 *.log
+*.txt
 Unused.java
