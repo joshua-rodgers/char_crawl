@@ -51,4 +51,7 @@ is a big deal for me as i've never done that before for a couple of reasons: 1. 
 to be able to find the entry point of the code to make any sense of the project in a reasonable amount of time. 2. because looking at other people's code always felt like 
 "cheating" because of this self-conciousness i used to have at being a __n00b__. thing is, i dont care about other people anymore. ive found my own groove. ill probably 
 never be a pro dev, and that's cool. i find little opportunities to write scripts in my job in IT when i feel like it. so to me being able to look to other projects for 
-help in figuring out a tough problem is a sign of growth. 
+help in figuring out a tough problem is a sign of personal growth. The project i checked out was the roguelike angband. its written in c and the structure of the source 
+was very friendly at least in that the source files were very semantically named. I was able to find some of the prcedural generation code fairly easily by just following 
+the names of the source files. from one of them i learned that while procedural generation is about as daunting as i imagined, some of the ideas were quite intuitive and 
+therefore some of the naive strtegies i had devised in my head were actually vaild for making something simple. this is a bit of a breakthrough.
