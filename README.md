@@ -34,7 +34,7 @@ figure out what i want the game to look like. do i want there to be scrolling of
 i'm leaning that way because as the name of this repo suggests, there is the spirit of a dungeon crawler here. the though of that is exciting. perhaps i need to start 
 thinking of enemies first?
 
-i hate this crap; i am insane. i love this, i am beautiful.
+## i hate this crap; i am insane. i love this, i am beautiful.
 
 ![gif of game board and character moving around as map is randomly regenerated](demo4.gif)
 
