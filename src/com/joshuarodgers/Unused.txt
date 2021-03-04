@@ -1,6 +1,6 @@
 package com.joshuarodgers;
 
-public class unused {
+public class Unused {
 
     private void load_screen(int pcnt_done){
         int full_bar_size = 200;
