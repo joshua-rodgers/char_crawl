@@ -39,7 +39,15 @@ public class Game{
         current_map = first_room;
         player = new Player(current_map);
 
+        build_room();
 
+        current_map[player.row][player.col] = player;
+        //current_map[9][12] = new Coin(9, 12, current_map);
+        //current_map[16][4] = new Coin(16, 4, current_map);
+    }
+
+    private void build_room(){
+        int num_doors = g_utilities.get_random(4);
         for(int row = 0; row < current_map.length; row++){
             for(int col = 0; col < current_map[row].length; col++){
                 if(row == 0 || row == current_map.length - 1){
@@ -51,9 +59,6 @@ public class Game{
                 }
             }
         }
-        current_map[player.row][player.col] = player;
-        //current_map[9][12] = new Coin(9, 12, current_map);
-        //current_map[16][4] = new Coin(16, 4, current_map);
     }
 
     public void update(){
