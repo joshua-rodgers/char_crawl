@@ -12,10 +12,10 @@ as a test for consistency. i began with a valiant attempt to randomly place the 
 chunks starting with the west wall. next ill add the north wall and so on. i'm working in branches this time, because a broken version would prove the end at this point.
 
 im trying to focus on keeping it simple to save the project. i can see how things could fall apart if i naively go for too much. for instance, i initially wanted to move 
-randomly through the array of dungeons connecting the rooms together. this was stupid and added unnecessary complexity. the rooms are already randomly generated, doing 
-that serves no purpose. then i wanted to check if the dimensions of the rooms and their connection points caused them to overlap geometrically. if so, i wanted to eliminate 
-the door, and add a staircase since if they overlapped it meant one must be above the other since ive not implemented non-rectangular rooms. now, i still want to do this, but 
-this is definitely not something to go for when i haven't even fully defined the door class yet! the struggel would likely kill progress at this point, so i have to proceed in
+randomly through the array of dungeons connecting the rooms together. this was stupid and added unnecessary complexity. the rooms are already randomly generated, so doing 
+more serves no purpose. then i wanted to check if the dimensions of the rooms and connection points caused overlap with other rooms. if so, i wanted to remove the door in 
+that room, and add a staircase since if they overlapped it meant one must be above the other since ive not implemented non-rectangular rooms. now, i still want to do this, but 
+this is definitely not something to go for when i haven't even fully defined the door class yet! the struggle would likely kill progress at this point, so i have to proceed in
 small chunks. that said, after getting random door placement fully implemented, i see an opportunity to begin attempting simple geometry checks to see if a room is say, wider 
 than it is long and if the room it connects to is of a certain dimension, forcing the placement of the wide room so that it doesnt overlap with the previous. with those checks 
 in place id have the machinery to check for intersections and could implement the stair placement. however, before that, it's be great just to get doors not only placed, but 
