@@ -15,7 +15,8 @@ public class Game_Input extends KeyAdapter {
         switch(pressed){
             case 32:
             // test case for generating rooms on the fly
-                game.init_world(game.dungeon_size);
+            // test case for moving through rooms
+                game.test_next_room();
                 break;
             case 37:
                 game.player.move("left");
