@@ -5,6 +5,8 @@ __latest progress__
 
 ## Rough Doors
 
+![gif of game board moving between rooms, displaying door placement](demo5.gif)
+
 so i've added a rough implementation of doors. right now theyre all in a chain with a west wall adjoining the next room's east wall. the spacebar move you between the rooms
 as a test for consistency. i began with a valiant attempt to randomly place the door on any wall at any location. that proved overwhelming to attack at once so im going in
 chunks starting with the west wall. next ill add the north wall and so on. i'm working in branches this time, because a broken version would prove the end at this point.
@@ -19,8 +21,6 @@ than it is long and if the room it connects to is of a certain dimension, forcin
 in place id have the machinery to check for intersections and could implement the stair placement. however, before that, it's be great just to get doors not only placed, but 
 functional, and implement a few items, like keys, and get them placed in the rooms, then get some enemies working. with that in mind, i still have to decide how the game will 
 work: will it be turn-based?
-
-![gif of game board moving between rooms, displaying door placement](demo5.gif)
 
 ## i hate this crap; i am insane. i love this, i am beautiful.
 
