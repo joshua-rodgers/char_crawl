@@ -17,7 +17,7 @@ more serves no purpose. then i wanted to check if the dimensions of the rooms an
 that room, and add a staircase since if they overlapped it meant one must be above the other since ive not implemented non-rectangular rooms. now, i still want to do this, but 
 this is definitely not something to go for when i haven't even fully defined the door class yet! the struggle would likely kill progress at this point, so i have to proceed in
 small chunks. that said, after getting random door placement fully implemented, i see an opportunity to begin attempting simple geometry checks to see if a room is say, wider 
-than it is long and if the room it connects to is of a certain dimension, forcing the placement of the wide room so that it doesnt overlap with the previous. with those checks 
+than it is long and if the room it connects to is of a certain dimension, forcing the placement of the wide room so that it doesnt overlap with other rooms. with those checks 
 in place id have the machinery to check for intersections and could implement the stair placement. however, before that, it's be great just to get doors not only placed, but 
 functional, and implement a few items, like keys, and get them placed in the rooms, then get some enemies working. with that in mind, i still have to decide how the game will 
 work: will it be turn-based?
