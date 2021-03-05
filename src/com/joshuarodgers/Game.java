@@ -1,6 +1,5 @@
 package com.joshuarodgers;
 
-
 public class Game{
     Game_Graphics g_gfx;
     Game_Input g_input;
@@ -27,38 +26,44 @@ public class Game{
         g_gfx.init_graphics();
     }
 
-
-
     public void init_world(int limit){
         for(var room = 0; room < dungeon.length; room++){
             dungeon[room] = new Gamepiece[g_utilities.get_random(4, limit)][g_utilities.get_random(4, limit)];
         }
         Gamepiece[][] first_room = dungeon[0];
         current_board = new char[first_room.length][first_room[0].length];
-        
+
+        for(Gamepiece[][] room:dungeon){
+            build_room(room);
+        }
+
         current_map = first_room;
         player = new Player(current_map);
-
-        build_room();
+        
 
         current_map[player.row][player.col] = player;
         //current_map[9][12] = new Coin(9, 12, current_map);
         //current_map[16][4] = new Coin(16, 4, current_map);
     }
 
-    private void build_room(){
+    private void build_room(Gamepiece[][] room){
         int num_doors = g_utilities.get_random(4);
-        for(int row = 0; row < current_map.length; row++){
-            for(int col = 0; col < current_map[row].length; col++){
-                if(row == 0 || row == current_map.length - 1){
-                    current_map[row][col] = new Wall(row, col, current_map);
-                }else if(col == 0 || col == current_map[row].length - 1){
-                    current_map[row][col] = new Wall(row, col, current_map);
+        for(int row = 0; row < room.length; row++){
+            for(int col = 0; col < room[row].length; col++){
+                if(row == 0 || row == room.length - 1){
+                    room[row][col] = new Wall(row, col, room);
+                }else if(col == 0 || col == room[row].length - 1){
+                    room[row][col] = new Wall(row, col, room);
                 }else{
-                    current_map[row][col] = null;
+                    room[row][col] = null;
                 }
             }
+
         }
+    }
+
+    private void place_doors(Gamepiece[][] room){
+
     }
 
     public void update(){
@@ -83,7 +88,6 @@ public class Game{
                 break;
             }
         }
-
     }
 
     public static void main(String[] args) {
