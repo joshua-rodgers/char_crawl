@@ -3,6 +3,12 @@ simple game inspired by rogue/dugeon crawlers. experimenting to see how much fun
 
 __latest progress__
 
+## More Doors
+
+![gif of game board moving between rooms, displaying door placement again](demo6.gif)
+
+doors now placed on north wall (and south wall of next room by default). rewired the door class to change glyph depending on door orientation. this is getting interesting!
+
 ## Rough Doors
 
 ![gif of game board moving between rooms, displaying door placement](demo5.gif)
