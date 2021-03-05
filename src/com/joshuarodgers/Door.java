@@ -2,21 +2,26 @@ package com.joshuarodgers;
 
 class Door extends Gamepiece{
     boolean is_locked;
+    private boolean is_vertical;
     Gamepiece[][] room_1;
     Gamepiece[][] room_2;
     private Gamepiece[][] current;
     private boolean first_set;
     int used;
     
-    public Door(boolean is_locked){
+    public Door(boolean is_locked, boolean is_vertical){
         this.is_locked = is_locked;
         used = 0;
         mobile = false;
 
-        if(is_locked){
+        if(is_locked && !is_vertical){
             this.glyph = '|';
-        }else{
+        }else if(is_locked && is_vertical){
             this.glyph = '_';
+        }else if(!is_locked && !is_vertical){
+            this.glyph = '_';
+        }else if(!is_locked && is_vertical){
+            this.glyph = '|';
         }
     }
 

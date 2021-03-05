@@ -16,6 +16,7 @@ public class Game_Input extends KeyAdapter {
             case 32:
             // test case for generating rooms on the fly
             // test case for moving through rooms
+                //game.init_world(game.size);
                 game.test_next_room();
                 break;
             case 37:
