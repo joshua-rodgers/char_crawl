@@ -5,7 +5,7 @@ __latest progress__
 
 ## my heart rejoices in the Lord. exploration.
 
-![gif of player moving between rooms using doors](demo8.gif)
+![gif of player moving between rooms using doors](demo7.gif)
 
 the doors work! im not totally happy with the structure of the data at this point, im passing around references in a way that doesn't feel clean just yet, but everything i 
 did felt completely resonable. it makes sense that a door object would have a reference to the game object simply because a door is not just an item in the game, it is in 
