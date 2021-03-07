@@ -90,7 +90,7 @@ public class Game{
 
             switch(wall){
                 case 0: // west wall of current room
-                    current_door = new Door(false, false); // unlocked east/west door
+                    current_door = new Door(false, false, this); // unlocked east/west door
                     position = g_utilities.get_random(1, current_room.length - 2);
                     if(current_idx < dungeon.length - 1){
                         if(dungeon[current_idx][position][0].glyph == 'X'){
@@ -111,7 +111,7 @@ public class Game{
                     
                     break;
                 case 1:
-                    current_door = new Door(false, true);
+                    current_door = new Door(false, true, this);
                     position = g_utilities.get_random(1, current_room[0].length - 2);
                     if(current_idx < dungeon.length - 1){
                         if(dungeon[current_idx][0][position].glyph == 'X'){
@@ -152,6 +152,46 @@ public class Game{
             current_map_idx = 0;
             current_map = dungeon[current_map_idx];
             current_board = new char[current_map.length][current_map[0].length];
+        }
+    }
+
+    public void change_room(Gamepiece[][] room, int row, int col, boolean is_vertical){
+        if(room != null){
+            
+            current_board = new char[room.length][room[0].length];
+            if(is_vertical){
+                if(row == 0){
+                    current_map[player.row][player.col] = null;
+                    player.row = 1;
+                    player.col = col;
+                    player.map = room;
+                    room[player.row][player.col] = player;
+                    current_map = room;
+                }else{
+                    current_map[player.row][player.col] = null;
+                    player.row = row - 1;
+                    player.col = col;
+                    player.map = room;
+                    room[player.row][player.col] = player;
+                    current_map = room;
+                }
+            }else{
+                if(col == room[0].length - 1){
+                    current_map[player.row][player.col] = null;
+                    player.col = col - 1;
+                    player.row = row;
+                    player.map = room;
+                    room[player.row][player.col] = player;
+                    current_map = room;
+                }else{
+                    current_map[player.row][player.col] = null;
+                    player.col = 1;
+                    player.row = row;
+                    player.map = room;
+                    room[player.row][player.col] = player;
+                    current_map = room;
+                }
+            }
         }
     }
 

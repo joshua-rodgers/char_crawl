@@ -8,4 +8,5 @@ abstract class Gamepiece {
     Gamepiece[][] map;
 
     public void move(String direction){}
+    public void action(){}
 }

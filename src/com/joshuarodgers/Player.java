@@ -31,6 +31,12 @@ class Player extends Gamepiece{
             case 'c':
                 collect((Game_Item)tested);
                 return true;
+            case '|':
+                tested.action();
+                return false;
+            case '_':
+                tested.action();
+                return false;
             default:
                 return false;
         }
