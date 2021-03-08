@@ -3,6 +3,18 @@ simple game inspired by rogue/dugeon crawlers. experimenting to see how much fun
 
 __latest progress__
 
+## door. placement. fully. implemented.
+
+![gif of player moving between rooms using doors](demo8.gif)
+
+doors are now randomly placed on any wall. this is liberating and scary because now i have to face the tru challenge of building a game (in my view anyway), developing the 
+enemies and defining the actual rules of the game. collecting items is simple enough, implementing coins wasn't anything crazy, but now i have to define the behaviors of a 
+whole other 'player' in the game. i have to decide whether i want gameplay to be real-time or turn-based. im leaning strongly toward real-time, because i don't really 
+understand how turn-based games work. i mean, its pretty straightforward i suppose, each time the player moves, the game-world and the enemies in the room take some action 
+based on their positions. hmmm. turn-based could be interesting in the presence of the influence of Randu...
+
+
+
 ## my heart rejoices in the Lord. exploration.
 
 ![gif of player moving between rooms using doors](demo7.gif)
