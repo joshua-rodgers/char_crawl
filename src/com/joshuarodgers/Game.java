@@ -78,13 +78,13 @@ public class Game{
         int last_wall = -1;
 
         while(rem_doors > 0){
-            int wall = g_utilities.get_random(1);
+            int wall = g_utilities.get_random(3);
             //int wall = 0; // count clockwise from west wall 0, 1, 2, 3
             int position;
             Door current_door;
 
             // only one door on a wall
-            if(last_wall > 0 && wall == last_wall){
+            if(last_wall >= 0 && wall == last_wall){
                 continue;
             }
 
@@ -132,8 +132,46 @@ public class Game{
                     }
                     break;
                 case 2:
+                    current_door = new Door(false, false, this);
+                    position = g_utilities.get_random(1, current_room.length - 2);
+                    if(current_idx < dungeon.length - 1){
+                        if(current_room[position][current_room[position].length - 1].glyph == 'X'){
+                            current_room[position][current_room[position].length - 1] = current_door;
+                        }else{
+                            break;
+                        }
+
+                        current_door.set_first(position, current_room[position].length - 1, current_room);
+                        current_idx++;
+                        current_room = dungeon[current_idx]; // adjoining room now current
+
+                        position = g_utilities.get_random(1, current_room.length - 2);
+                        current_room[position][0] = current_door;
+                        current_door.set_second(position, 0, current_room);
+                        rem_doors--;
+                        last_wall = 0; // west wall of current room
+                    }
                     break;
                 case 3:
+                    current_door = new Door(false, true, this);
+                    position = g_utilities.get_random(1, current_room[current_room.length - 1].length - 2);
+                    if(current_idx < dungeon.length - 1){
+                        if(current_room[current_room.length - 1][position].glyph == 'X'){
+                            current_room[current_room.length - 1][position] = current_door;
+                        }else{
+                            break;
+                        }
+                    }
+
+                    current_door.set_first(current_room.length - 1, position, current_room);
+                    current_idx++;
+                    current_room = dungeon[current_idx]; // adjoining room now current
+
+                    position = g_utilities.get_random(1, current_room[0].length - 2);
+                    dungeon[current_idx][0][position] = current_door;
+                    current_door.set_second(0, position, current_room);
+                    rem_doors--;
+                    last_wall = 1; // north wall of current room
                     break;
                 default:
                     break;
