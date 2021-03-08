@@ -31,7 +31,7 @@ class Player extends Gamepiece{
             case 'c':
                 collect((Game_Item)tested);
                 return true;
-            case '|':
+            case '\\':
                 tested.action();
                 return false;
             case '_':

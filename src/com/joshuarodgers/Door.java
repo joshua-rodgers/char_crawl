@@ -20,13 +20,13 @@ class Door extends Gamepiece{
         mobile = false;
 
         if(is_locked && !is_vertical){
-            this.glyph = '|';
+            this.glyph = '\\';
         }else if(is_locked && is_vertical){
             this.glyph = '_';
         }else if(!is_locked && !is_vertical){
             this.glyph = '_';
         }else if(!is_locked && is_vertical){
-            this.glyph = '|';
+            this.glyph = '\\';
         }
     }
 
