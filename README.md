@@ -3,6 +3,20 @@ simple game inspired by rogue/dugeon crawlers. experimenting to see how much fun
 
 __latest progress__
 
+## my heart rejoices in the Lord. exploration.
+
+![gif of player moving between rooms using doors](demo7.gif)
+
+the doors work! im not totally happy with the structure of the data at this point, im passing around references in a way that doesn't feel clean just yet, but everything i 
+did felt completely resonable. it makes sense that a door object would have a reference to the game object simply because a door is not just an item in the game, it is in 
+effect a piece of the machinery; it transports the player between rooms and therefore acts almost as an input device, right? to maintain the separation of concerns, all it 
+does is call a method of the game class that actually makes the changes to the data model, so the 'veil' is not broken, though perhaps it is rather thin. i see this as okay 
+as long as i stay true to only having the data model change in the game class where it resides, references and method calls are fine, that's what theyre for. 
+
+next i need to finish up implementing the random placement of doors with east and south walls. though there are already doors placed on those walls, they are only placed 
+there as a result of an opposing wall being placed first. as a result the game only moves from east to west or from south to north. once that's done i can restructure 
+everything to clean up the code, and begin to think about items and enemies.
+
 ## More Doors
 
 ![gif of game board moving between rooms, displaying door placement again](demo6.gif)
