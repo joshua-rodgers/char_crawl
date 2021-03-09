@@ -3,6 +3,13 @@ simple game inspired by rogue/dugeon crawlers. experimenting to see how much fun
 
 __latest progress__
 
+## rough enemy. 
+
+![gif of enemy viper attacking player](demo9.gif)
+
+my concept of a separate thread for enemies wasnt right. got it rough implemented with a method call to update enemied before rendering. need to get timing worked out, but 
+this is progress.
+
 ## door. placement. fully. implemented.
 
 ![gif of player moving between rooms using doors](demo8.gif)
