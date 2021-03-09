@@ -1,5 +1,7 @@
 package com.joshuarodgers;
 
+import java.util.ArrayList;
+
 public class Game{
     Game_Graphics g_gfx;
     Game_Input g_input;
@@ -11,6 +13,7 @@ public class Game{
     int current_map_idx;
     Player player;
     Gamepiece[] pieces;
+    ArrayList<Viper> enemies;
 
     final int dungeon_size;
     int size;
@@ -22,6 +25,7 @@ public class Game{
 
         dungeon_size = g_utilities.get_random(size);
         dungeon = new Gamepiece[dungeon_size][][];
+        enemies = new ArrayList<Viper>();
         init_world(size);
         this.size = size;
         g_gfx.init_graphics();
@@ -43,6 +47,7 @@ public class Game{
         place_doors(dungeon);
 
         current_map = first_room;
+        spawn_enemies();
         player = new Player(current_map);
         
 
@@ -111,7 +116,7 @@ public class Game{
                     
                     break;
                 case 1:
-                    current_door = new Door(false, true, this);
+                    current_door = new Door(false, true, this);// unlocked north/south door
                     position = g_utilities.get_random(1, current_room[0].length - 2);
                     if(current_idx < dungeon.length - 1){
                         if(dungeon[current_idx][0][position].glyph == 'X'){
@@ -132,7 +137,7 @@ public class Game{
                     }
                     break;
                 case 2:
-                    current_door = new Door(false, false, this);
+                    current_door = new Door(false, false, this); // unlocked east/west door
                     position = g_utilities.get_random(1, current_room.length - 2);
                     if(current_idx < dungeon.length - 1){
                         if(current_room[position][current_room[position].length - 1].glyph == 'X'){
@@ -153,7 +158,7 @@ public class Game{
                     }
                     break;
                 case 3:
-                    current_door = new Door(false, true, this);
+                    current_door = new Door(false, true, this);// unlocked north/south door
                     position = g_utilities.get_random(1, current_room[current_room.length - 1].length - 2);
                     if(current_idx < dungeon.length - 1){
                         if(current_room[current_room.length - 1][position].glyph == 'X'){
@@ -179,6 +184,20 @@ public class Game{
 
         }
 
+    }
+
+    public void spawn_enemies(){
+        enemies.add(new Viper(g_utilities.get_random(1, current_map.length - 1), g_utilities.get_random(1, current_map[0].length - 1),current_map));
+        
+        for(Viper v : enemies){
+            current_map[v.row][v.col] = v;
+        }
+    }
+
+    public void ai(){
+        for(Viper v : enemies){
+            v.live();
+        }
     }
 
     public void test_next_room(){
@@ -248,10 +267,11 @@ public class Game{
     public void run(){
         while(true){
             try{
+                ai();
                 g_gfx.render();
                 Thread.sleep(100);
             }catch(Exception ex){
-                System.out.println(ex.getMessage());
+                ex.printStackTrace();
                 break;
             }
         }

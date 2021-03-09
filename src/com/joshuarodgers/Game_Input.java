@@ -20,16 +20,16 @@ public class Game_Input extends KeyAdapter {
                 //game.test_next_room();
                 break;
             case 37:
-                game.player.move("left");
+                game.player.move(0);
                 break;
             case 38:
-                game.player.move("up");
+                game.player.move(1);
                 break;
             case 39:
-                game.player.move("right");
+                game.player.move(2);
                 break;
             case 40:
-                game.player.move("down");
+                game.player.move(3);
                 break;
             default:
         }

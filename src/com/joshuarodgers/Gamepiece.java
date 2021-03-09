@@ -7,6 +7,6 @@ abstract class Gamepiece {
     boolean mobile;
     Gamepiece[][] map;
 
-    public void move(String direction){}
+    public void move(int direction){}
     public void action(){}
 }
