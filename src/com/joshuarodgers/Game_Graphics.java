@@ -64,6 +64,10 @@ public class Game_Graphics {
             img_ctx.drawString(new String(row), x, y);
             y += 20;
         }
+        if(game.msg_changed){
+            img_ctx.drawString(game.message, 10, 10);
+            game.msg_changed = false;
+        }
         panel_ctx.drawImage(buffer, 0, 0, null);
     }
 

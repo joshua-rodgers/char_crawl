@@ -86,4 +86,13 @@ class Player extends Gamepiece{
     public void collect(Game_Item item){
         item.collected(this);
     }
+/*
+    public void attacked(Enemy enemy){
+        switch(enemy.name){
+            case "Viper":
+                energy
+                break;
+        }
+    }
+*/
 }

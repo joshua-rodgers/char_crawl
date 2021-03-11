@@ -18,10 +18,16 @@ public class Game{
     final int dungeon_size;
     int size;
 
+    String message;
+    boolean msg_changed;
+
     public Game (int size){
         g_input = new Game_Input(this);
         g_gfx = new Game_Graphics(this, size);
         g_utilities = new Game_Utils();
+
+        message = "";
+        msg_changed = false;
 
         dungeon_size = g_utilities.get_random(size);
         dungeon = new Gamepiece[dungeon_size][][];
@@ -187,11 +193,16 @@ public class Game{
     }
 
     public void spawn_enemies(){
-        enemies.add(new Viper(g_utilities.get_random(1, current_map.length - 1), g_utilities.get_random(1, current_map[0].length - 1),current_map));
+        enemies.add(new Viper(g_utilities.get_random(1, current_map.length - 1), g_utilities.get_random(1, current_map[0].length - 1),current_map, this));
         
         for(Viper v : enemies){
             current_map[v.row][v.col] = v;
         }
+    }
+
+    public void message_board(String message){
+        this.message = message;
+        this.msg_changed = true;
     }
 
     public void ai(){

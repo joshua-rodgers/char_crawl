@@ -1,22 +1,49 @@
 package com.joshuarodgers;
 
 public class Viper extends Enemy {
-    public Viper(int row, int col, Gamepiece[][] room){
+    private long start_time;
+    private long current_time;
+    private long wait_time;
+
+    static final String attack_type = "bite";
+
+    public Viper(int row, int col, Gamepiece[][] room, Game game){
         this.name = "Viper";
         this.glyph = 'v';
+        this.power = utilities.get_random(3);
+        this.energy = utilities.get_random(10);
+        this.level = utilities.get_random(5);
         this.row = row;
         this.col = col;
         this.is_alive = true;
+        this.start_time = System.currentTimeMillis();
+        this.current_time = 0;
+        this.wait_time = 0;
         this.room = room;
+        this.game = game;
     }
 
     public void live(){
         //int steps = Enemy.utilities.get_random(1, room.length - 1);
         //int steps = 3;
         byte direction;
-        if(is_alive){
-            direction = (byte)Enemy.utilities.get_random(3);
-            move(direction);
+        if(loiter()){
+            if(is_alive){
+                direction = (byte)Enemy.utilities.get_random(3);
+                move(direction);
+            }
+        }
+    }
+
+    public boolean loiter(){
+        long elapsed = System.currentTimeMillis() - start_time;
+        if(wait_time > 1000){
+            wait_time = 0;
+            start_time = System.currentTimeMillis();
+            return true;
+        }else{
+            wait_time += elapsed;
+            return false;
         }
     }
 
@@ -78,6 +105,8 @@ public class Viper extends Enemy {
 
     @Override
     public void attack() {
-        System.out.println("attacked");
+        game.player.energy -= power * level;
+        game.message_board("You were bitten by a viper!");
+        System.out.println(game.player.energy);
     }
 }
