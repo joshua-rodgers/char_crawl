@@ -107,6 +107,6 @@ public class Viper extends Enemy {
     public void attack() {
         game.player.energy -= power * level;
         game.message_board("You were bitten by a viper!");
-        System.out.println(game.player.energy);
+        //System.out.println(game.player.energy);
     }
 }

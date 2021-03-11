@@ -53,6 +53,8 @@ public class Game_Graphics {
         font = new Font("monospaced", 1, font_size);
         img_ctx.setFont(font);
         img_ctx.setColor(Color.WHITE);
+
+        game.msg_game_action.init_widget(12, Color.WHITE);
     }
 
     public void render(){
@@ -64,9 +66,13 @@ public class Game_Graphics {
             img_ctx.drawString(new String(row), x, y);
             y += 20;
         }
-        if(game.msg_changed){
-            img_ctx.drawString(game.message, 10, 10);
-            game.msg_changed = false;
+        if(!game.msg_game_action.expired){
+            img_ctx.setFont(game.msg_game_action.msg_font);
+            img_ctx.setColor(game.msg_game_action.msg_font_color);
+            img_ctx.drawString(game.msg_game_action.get_message(), x, y);
+            game.msg_game_action.message_duration();
+            img_ctx.setFont(font);
+            img_ctx.setColor(Color.WHITE);
         }
         panel_ctx.drawImage(buffer, 0, 0, null);
     }

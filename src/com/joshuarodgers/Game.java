@@ -18,16 +18,16 @@ public class Game{
     final int dungeon_size;
     int size;
 
-    String message;
-    boolean msg_changed;
+    Info_Widget msg_game_action;
+    Info_Widget info_player_stats;
 
     public Game (int size){
         g_input = new Game_Input(this);
         g_gfx = new Game_Graphics(this, size);
         g_utilities = new Game_Utils();
 
-        message = "";
-        msg_changed = false;
+        msg_game_action = new Info_Widget();
+        info_player_stats = new Info_Widget();
 
         dungeon_size = g_utilities.get_random(size);
         dungeon = new Gamepiece[dungeon_size][][];
@@ -201,8 +201,7 @@ public class Game{
     }
 
     public void message_board(String message){
-        this.message = message;
-        this.msg_changed = true;
+        this.msg_game_action.set_messsage(message);
     }
 
     public void ai(){
