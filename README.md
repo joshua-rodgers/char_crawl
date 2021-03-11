@@ -3,6 +3,15 @@ simple game inspired by rogue/dugeon crawlers. experimenting to see how much fun
 
 __latest progress__
 
+## rough in-game messages
+
+![gif of enemy viper attacking player](demo10.gif)
+
+so i roughed in a game message class, info_widget, that will display messages when various things occur like the player taking damage or collecting an item or something. 
+i still need to workout the timing for how long the messages remain, its currently set at 10000 millis but i know its not staying that long, im misunderstanding something
+about how system.currenttimemillis() works, or more likely, how to calculate the duration the way im going about it. i need to get the positioning worked out better, it's 
+just displaying right below the map right now, i need to create an actual fixed area for it.
+
 ## rough enemy. 
 
 ![gif of enemy viper attacking player](demo9.gif)
