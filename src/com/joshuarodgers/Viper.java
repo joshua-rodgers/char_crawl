@@ -43,6 +43,7 @@ public class Viper extends Enemy {
             return true;
         }else{
             wait_time += elapsed;
+            start_time = System.currentTimeMillis();
             return false;
         }
     }
