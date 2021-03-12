@@ -7,10 +7,27 @@ __latest progress__
 
 ![gif of enemy viper attacking player](demo10.gif)
 
+all the code im adding in right now is going into the enemies branch. ill merge when i feel like ive got a solid working version that incorporates everything im going for 
+at this stage.
+
 so i roughed in a game message class, info_widget, that will display messages when various things occur like the player taking damage or collecting an item or something. 
 i still need to workout the timing for how long the messages remain, its currently set at 10000 millis but i know its not staying that long, im misunderstanding something
 about how system.currenttimemillis() works, or more likely, how to calculate the duration the way im going about it. i need to get the positioning worked out better, it's 
-just displaying right below the map right now, i need to create an actual fixed area for it.
+just displaying right below the map right now, i need to create an actual fixed area for it. i also hacked the timing of the viper by creating a method, loiter(), that 
+does basically what it sounds like: it causes the viper to wait a second before its next move. next i want to coordinate the viper's movement so i can use it for something 
+like guarding a door by having it move in a defined path in front. i also want to define a way to coordinate groups of vipers or enemies in general so they move as a unit.
+
+im enjoying this part of the process. im attempting to keep a focus on implementing everything to be modular, always remembering that each enemy needs to be able to be 
+systematically randomly generated. in the little quasi-dungeon hack i did before, knaughts, the enemy i made was very rigidly defined more or less to fit in the one stage 
+i created. id like to be able to drop any of these enemies into any room in this game and have them make sense, though i imagine i will define parameters to make the rooms 
+fair and fun, so certain types of enemies only make sense in certain types of rooms. say, if theres an enemy that shoots projectiles, i might only like to place it in room 
+of at least a certain size. or if theres one that requires the player to have a certain item to defeat, that enemy shouldn't appear until that item has been available to 
+collect. im also enjoying working out timing for everything. im using this cotrived little timing algorithm i picked up from some code i saw a long time ago for implementing 
+a game loop. you take the time the iteration started, subtract the current time, and add the difference to the elapsed time. once the elapsed time reaches a certain 
+threshold, you take whatever action you need. i know im likely corrupting it, but it intuitive and simple enough that when i need it i acan just hack it out in my head 
+without having to look anything up, ricking gettting distracted. lol.
+
+fun. fun.
 
 ## rough enemy. 
 
