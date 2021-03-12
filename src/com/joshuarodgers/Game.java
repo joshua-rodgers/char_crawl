@@ -29,7 +29,7 @@ public class Game{
         msg_game_action = new Info_Widget();
         info_player_stats = new Info_Widget();
 
-        dungeon_size = g_utilities.get_random(size);
+        dungeon_size = g_utilities.get_random(4, size);
         dungeon = new Gamepiece[dungeon_size][][];
         enemies = new ArrayList<Viper>();
         init_world(size);

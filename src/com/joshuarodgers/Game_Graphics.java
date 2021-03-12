@@ -8,8 +8,10 @@ public class Game_Graphics {
     Game game;
     Frame frame;
     Panel panel;
+    Panel panel2;
     Image buffer;
     Graphics panel_ctx;
+    Graphics panel2_ctx;
     Graphics img_ctx;
     Font font;
     Resize_Trigger resizer;
@@ -24,14 +26,18 @@ public class Game_Graphics {
         this.size = size;
         this.resizer = new Resize_Trigger(this);
         frame_width = size * (size + 2);
-        frame_height = size * (size + 2);
+        frame_height = size * (size + 2) + 250;
  
         frame = new Frame();
         panel = new Panel();
+        panel2 = new Panel();
         frame.setSize(frame_width, frame_height);
         frame.setBackground(Color.BLACK);
         panel.setSize(frame.getSize());
         panel.setPreferredSize(frame.getSize());
+        panel2.setSize(frame.getWidth(), 250);
+        panel2.setPreferredSize(panel2.getSize());
+        panel.setBackground(Color.RED);
         panel.setMaximumSize(new Dimension(1000, 1000));
         frame.addKeyListener(game.g_input);
         frame.addWindowListener(new WindowAdapter(){
@@ -41,12 +47,14 @@ public class Game_Graphics {
         });
         frame.addComponentListener(resizer);
         frame.add(panel);
-        frame.pack();
+        frame.add(panel2);
+        //frame.pack();
         frame.setVisible(true);
     }
 
     public void init_graphics(){
         panel_ctx = panel.getGraphics();
+        panel2_ctx = panel2.getGraphics();
         buffer = panel.createImage(panel.getMaximumSize().width, panel.getMaximumSize().height);
         img_ctx = buffer.getGraphics();
         font_size = 20;
@@ -75,6 +83,8 @@ public class Game_Graphics {
             img_ctx.setColor(Color.WHITE);
         }
         panel_ctx.drawImage(buffer, 0, 0, null);
+        panel2_ctx.setColor(Color.WHITE);
+        panel2_ctx.drawRect(30, 30, 50, 50);
     }
 
     public void size_recalc(){
