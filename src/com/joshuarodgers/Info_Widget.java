@@ -45,6 +45,7 @@ public class Info_Widget {
             return true;
         }else{
             duration += elapsed;
+            triggered = System.currentTimeMillis();
             //System.out.println(duration);
             return false;
         }
