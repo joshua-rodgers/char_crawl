@@ -10,6 +10,8 @@ __latest progress__
 all the code im adding in right now is going into the enemies branch. ill merge when i feel like ive got a solid working version that incorporates everything im going for 
 at this stage.
 
+__edit: fixed message timimg in _enemies_ branch__
+
 so i roughed in a game message class, info_widget, that will display messages when various things occur like the player taking damage or collecting an item or something. 
 i still need to workout the timing for how long the messages remain, its currently set at 10000 millis but i know its not staying that long, im misunderstanding something
 about how system.currenttimemillis() works, or more likely, how to calculate the duration the way im going about it. i need to get the positioning worked out better, it's 
