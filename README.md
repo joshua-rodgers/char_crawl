@@ -10,7 +10,7 @@ __latest progress__
 all the code im adding in right now is going into the enemies branch. ill merge when i feel like ive got a solid working version that incorporates everything im going for 
 at this stage.
 
-__edit: fixed message timimg in _enemies_ branch__
+__edit: fixed message timimg in _enemies_ branch__ i wasnt resetting the triggered time at the end of the method call. weird how problems stick out after a break.
 
 so i roughed in a game message class, info_widget, that will display messages when various things occur like the player taking damage or collecting an item or something. 
 i still need to workout the timing for how long the messages remain, its currently set at 10000 millis but i know its not staying that long, im misunderstanding something
@@ -26,8 +26,8 @@ fair and fun, so certain types of enemies only make sense in certain types of ro
 of at least a certain size. or if theres one that requires the player to have a certain item to defeat, that enemy shouldn't appear until that item has been available to 
 collect. im also enjoying working out timing for everything. im using this cotrived little timing algorithm i picked up from some code i saw a long time ago for implementing 
 a game loop. you take the time the iteration started, subtract the current time, and add the difference to the elapsed time. once the elapsed time reaches a certain 
-threshold, you take whatever action you need. i know im likely corrupting it, but it intuitive and simple enough that when i need it i acan just hack it out in my head 
-without having to look anything up, ricking gettting distracted. lol.
+threshold, you take whatever action you need. i know im likely corrupting it, but its intuitive and simple enough that when i need it i can just hack it out in my head 
+without having to look anything up, risking gettting distracted. lol.
 
 fun. fun.
 
