@@ -5,7 +5,7 @@ __latest progress__
 
 ## better interface
 
-![gif of enemy viper attacking player and messages/player stats displayed in new panel to right](demos/demo10.gif)
+![gif of enemy viper attacking player and messages/player stats displayed in new panel to right](demos/demo11.gif)
 
 so this gives the game interaface a bit of organization. ive broken the resizing mechanism by having to use a layout manager that i have no experience with. ive made 
 the window non resizable for now. i need to finish up the basic mechanisms for random generation and placement of enemies. i have an arraylist to hold enemies 
