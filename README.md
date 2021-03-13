@@ -5,7 +5,7 @@ __latest progress__
 
 ## rough in-game messages
 
-![gif of enemy viper attacking player](demo10.gif)
+![gif of enemy viper attacking player](demos/demo10.gif)
 
 all the code im adding in right now is going into the enemies branch. ill merge when i feel like ive got a solid working version that incorporates everything im going for 
 at this stage.
@@ -33,14 +33,14 @@ fun. fun.
 
 ## rough enemy. 
 
-![gif of enemy viper attacking player](demo9.gif)
+![gif of enemy viper attacking player](demos/demo9.gif)
 
 my concept of a separate thread for enemies wasnt right. got it rough implemented with a method call to update enemied before rendering. need to get timing worked out, but 
 this is progress.
 
 ## door. placement. fully. implemented.
 
-![gif of player moving between rooms using doors](demo8.gif)
+![gif of player moving between rooms using doors](demos/demo8.gif)
 
 doors are now randomly placed on any wall. this is liberating and scary because now i have to face the tru challenge of building a game (in my view anyway), developing the 
 enemies and defining the actual rules of the game. collecting items is simple enough, implementing coins wasn't anything crazy, but now i have to define the behaviors of a 
@@ -52,7 +52,7 @@ based on their positions. hmmm. turn-based could be interesting in the presence 
 
 ## my heart rejoices in the Lord. exploration.
 
-![gif of player moving between rooms using doors](demo7.gif)
+![gif of player moving between rooms using doors](demos/demo7.gif)
 
 the doors work! im not totally happy with the structure of the data at this point, im passing around references in a way that doesn't feel clean just yet, but everything i 
 did felt completely resonable. it makes sense that a door object would have a reference to the game object simply because a door is not just an item in the game, it is in 
@@ -66,13 +66,13 @@ everything to clean up the code, and begin to think about items and enemies.
 
 ## More Doors
 
-![gif of game board moving between rooms, displaying door placement again](demo6.gif)
+![gif of game board moving between rooms, displaying door placement again](demos/demo6.gif)
 
 doors now placed on north wall (and south wall of next room by default). rewired the door class to change glyph depending on door orientation. this is getting interesting!
 
 ## Rough Doors
 
-![gif of game board moving between rooms, displaying door placement](demo5.gif)
+![gif of game board moving between rooms, displaying door placement](demos/demo5.gif)
 
 so i've added a rough implementation of doors. right now theyre all in a chain with a west wall adjoining the next room's east wall. the spacebar move you between the rooms
 as a test for consistency. i began with a valiant attempt to randomly place the door on any wall at any location. that proved overwhelming to attack at once so im going in
@@ -91,7 +91,7 @@ work: will it be turn-based?
 
 ## i hate this crap; i am insane. i love this, i am beautiful.
 
-![gif of game board and character moving around as map is randomly regenerated](demo4.gif)
+![gif of game board and character moving around as map is randomly regenerated](demos/demo4.gif)
 
 so this is getting deeper now. i went around youtube watching gameplay of legit roguelikes and decided to go ahead and go for some legitimacy and add some random generation 
 features. so i restructured the game a bit: the "world" is now composed of a dungeon made up of randomly generated rooms. the number of rooms in the dungeon is randomly 
@@ -113,7 +113,7 @@ therefore some of the naive strtegies i had devised in my head were actually vai
 
 ## how's about a little greed?
 
-![gif of game board and character moving around, collecting gold coins](demo3.gif)
+![gif of game board and character moving around, collecting gold coins](demos/demo3.gif)
 
 added first collectible item, gold coins. also made gameboard adjust with the window to remain centered. no idea why i took that on, it took extra time to figure out 
 but i think it could be useful later as i'd like to make the gameboard larger on fullscreen or beyond a certain large size. next i think ill add an area on screen for 
@@ -137,13 +137,13 @@ strings that ultimately represent them on screen. the key ended up being giving 
 much nicer in that the data model and the view are separated cleanly. gamepieces can move around in map[][] and board[][] can just be updated to show any changes just before 
 rendering. next i need to implement collision detection and the basics of how gempieces will interact. right now, as the demo shows, the player can go out of bounds.
 
-![otro gif of game board and character moving around, going out of bounds](demo2.gif)
+![otro gif of game board and character moving around, going out of bounds](demos/demo2.gif)
 
 
 ## first test demo
 basic movement implemented. maybe let's collect some coins next?
 
-![gif of game board and character mving around](demo1.gif)
+![gif of game board and character mving around](demos/demo1.gif)
 
 
 
