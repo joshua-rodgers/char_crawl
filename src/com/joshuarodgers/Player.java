@@ -41,12 +41,12 @@ class Player extends Gamepiece{
                 return false;
         }
     }
-
+ 
     @Override
-    public void move(String direction) {
+    public void move(int direction) {
         Gamepiece me;
         switch(direction){
-            case "left":
+            case 0: // left
                 if(check(this.row, this.col - 1)){
                     me = this;
                     map[this.row][this.col] = null;
@@ -55,7 +55,7 @@ class Player extends Gamepiece{
                 }
                 
                 break;
-            case "up":
+            case 1: // up
                 if(check(this.row - 1, this.col)){
                     me = this;
                     map[this.row][this.col] = null;
@@ -63,7 +63,7 @@ class Player extends Gamepiece{
                     map[this.row][this.col] = me;
                 }
                 break;
-            case "right":
+            case 2: // right
                 if(check(this.row, this.col + 1)){
                     me = this;
                     map[this.row][this.col] = null;
@@ -71,7 +71,7 @@ class Player extends Gamepiece{
                     map[this.row][this.col] = me;
                 }
                 break;
-            case "down":
+            case 3: // down
                 if(check(this.row + 1, this.col)){
                     me = this;
                     map[this.row][this.col] = null;
@@ -86,4 +86,13 @@ class Player extends Gamepiece{
     public void collect(Game_Item item){
         item.collected(this);
     }
+/*
+    public void attacked(Enemy enemy){
+        switch(enemy.name){
+            case "Viper":
+                energy
+                break;
+        }
+    }
+*/
 }
