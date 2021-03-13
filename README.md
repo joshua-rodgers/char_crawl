@@ -3,6 +3,19 @@ simple game inspired by rogue/dugeon crawlers. experimenting to see how much fun
 
 __latest progress__
 
+## better interface
+
+![gif of enemy viper attacking player and messages/player stats displayed in new panel to right](demos/demo10.gif)
+
+so this gives the game interaface a bit of organization. ive broken the resizing mechanism by having to use a layout manager that i have no experience with. ive made 
+the window non resizable for now. i need to finish up the basic mechanisms for random generation and placement of enemies. i have an arraylist to hold enemies 
+(hardcoded to vipers atm), a method to spawn them, and the basic structure in place to update their movements, but i need to define a coherent mechanism to have them 
+generated and placed without overwhelming a small space, and so that they may act strategically or even exhibit swarm behavior to enhance gameplay. the random movement
+the viper is very _eh_. i need to have it be aware of the position of the player, even if it only moves back and forth in front of a door, it needs to actually attack 
+if the player gets too close; it need to feel dangerous. if i can work that out with this first enemy, ill have the concepts there for further more complex ones.
+
+i like.
+
 ## rough in-game messages
 
 ![gif of enemy viper attacking player](demos/demo10.gif)
