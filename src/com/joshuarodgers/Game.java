@@ -27,7 +27,7 @@ public class Game{
         g_utilities = new Game_Utils();
 
         msg_game_action = new Info_Widget();
-        info_player_stats = new Info_Widget();
+        
 
         dungeon_size = g_utilities.get_random(4, size);
         dungeon = new Gamepiece[dungeon_size][][];
@@ -55,6 +55,7 @@ public class Game{
         current_map = first_room;
         spawn_enemies();
         player = new Player(current_map);
+        info_player_stats = new Info_Widget(player);
         
 
         current_map[player.row][player.col] = player;
@@ -193,6 +194,7 @@ public class Game{
     }
 
     public void spawn_enemies(){
+        enemies.clear();
         enemies.add(new Viper(g_utilities.get_random(1, current_map.length - 1), g_utilities.get_random(1, current_map[0].length - 1),current_map, this));
         
         for(Viper v : enemies){

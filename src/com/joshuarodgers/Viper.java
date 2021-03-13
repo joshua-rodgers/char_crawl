@@ -2,7 +2,6 @@ package com.joshuarodgers;
 
 public class Viper extends Enemy {
     private long start_time;
-    private long current_time;
     private long wait_time;
 
     static final String attack_type = "bite";
@@ -10,14 +9,13 @@ public class Viper extends Enemy {
     public Viper(int row, int col, Gamepiece[][] room, Game game){
         this.name = "Viper";
         this.glyph = 'v';
-        this.power = utilities.get_random(3);
+        this.power = utilities.get_random(1, 3);
         this.energy = utilities.get_random(10);
-        this.level = utilities.get_random(5);
+        this.level = utilities.get_random(1, 5);
         this.row = row;
         this.col = col;
         this.is_alive = true;
         this.start_time = System.currentTimeMillis();
-        this.current_time = 0;
         this.wait_time = 0;
         this.room = room;
         this.game = game;

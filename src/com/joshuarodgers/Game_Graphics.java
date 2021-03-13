@@ -7,17 +7,24 @@ import java.awt.event.*;
 public class Game_Graphics {
     Game game;
     Frame frame;
-    Panel panel;
-    Panel panel2;
+    Panel game_panel;
+    Panel info_panel;
     Image buffer;
-    Graphics panel_ctx;
-    Graphics panel2_ctx;
+    Image info_buffer;
+    Graphics game_panel_ctx;
+    Graphics info_panel_ctx;
     Graphics img_ctx;
+    Graphics info_ctx;
     Font font;
     Resize_Trigger resizer;
 
     int frame_width;
     int frame_height;
+    int game_panel_width;
+    int game_panel_height;
+    int info_panel_width;
+    int info_panel_height;
+
     int font_size;
     int size;
 
@@ -26,19 +33,23 @@ public class Game_Graphics {
         this.size = size;
         this.resizer = new Resize_Trigger(this);
         frame_width = size * (size + 2);
-        frame_height = size * (size + 2) + 250;
+        frame_height = size * (size + 2);
+        game_panel_width = frame_width;
+        game_panel_height = frame_height;
+        info_panel_width = game_panel_width / 2;
+        info_panel_height = game_panel_height;
  
         frame = new Frame();
-        panel = new Panel();
-        panel2 = new Panel();
+        game_panel = new Panel();
+        info_panel = new Panel();
         frame.setSize(frame_width, frame_height);
         frame.setBackground(Color.BLACK);
-        panel.setSize(frame.getSize());
-        panel.setPreferredSize(frame.getSize());
-        panel2.setSize(frame.getWidth(), 250);
-        panel2.setPreferredSize(panel2.getSize());
-        panel.setBackground(Color.RED);
-        panel.setMaximumSize(new Dimension(1000, 1000));
+        game_panel.setSize(game_panel_width, game_panel_height);
+        game_panel.setPreferredSize(game_panel.getSize());
+        info_panel.setSize(info_panel_width, info_panel_height);
+        info_panel.setPreferredSize(info_panel.getSize());
+        game_panel.setBackground(Color.DARK_GRAY);
+        game_panel.setMaximumSize(new Dimension(1000, 1000));
         frame.addKeyListener(game.g_input);
         frame.addWindowListener(new WindowAdapter(){
             public void windowClosing(WindowEvent e){
@@ -46,49 +57,64 @@ public class Game_Graphics {
             }
         });
         frame.addComponentListener(resizer);
-        frame.add(panel);
-        frame.add(panel2);
-        //frame.pack();
+        frame.setLayout(new FlowLayout(1));
+        frame.add(game_panel);
+        frame.add(info_panel);
+        // TEMP-------------------
+        frame.setResizable(false);
+        // TEMP-------------------
+        frame.pack();
         frame.setVisible(true);
     }
 
     public void init_graphics(){
-        panel_ctx = panel.getGraphics();
-        panel2_ctx = panel2.getGraphics();
-        buffer = panel.createImage(panel.getMaximumSize().width, panel.getMaximumSize().height);
+        game_panel_ctx = game_panel.getGraphics();
+        info_panel_ctx = info_panel.getGraphics();
+        buffer = game_panel.createImage(game_panel.getMaximumSize().width, game_panel.getMaximumSize().height);
+        info_buffer = info_panel.createImage(info_panel.getWidth(), info_panel.getHeight());
+        info_ctx = info_buffer.getGraphics();
         img_ctx = buffer.getGraphics();
         font_size = 20;
         font = new Font("monospaced", 1, font_size);
         img_ctx.setFont(font);
         img_ctx.setColor(Color.WHITE);
-
         game.msg_game_action.init_widget(12, Color.WHITE);
+        info_ctx.setFont(game.msg_game_action.msg_font);
+        info_ctx.setColor(game.msg_game_action.msg_font_color);
+
+        
     }
 
     public void render(){
-        int x = (frame_width / 2) - ((int)(font_size * 0.6) * (size / 2));
-        int y = (frame_height / 2) - (font_size * (size / 2));
+        int x = (game_panel_width / 2) - ((int)(font_size * 0.6) * (size / 2));
+        int y = (game_panel_height / 2) - (font_size * (size / 2));
         game.update();
         img_ctx.clearRect(0, 0, frame.getWidth(), frame.getHeight());
         for(char[] row:game.current_board){
             img_ctx.drawString(new String(row), x, y);
             y += 20;
         }
+        
+        render_info();
+        info_panel_ctx.drawImage(info_buffer, 0, 0, null);
+        game_panel_ctx.drawImage(buffer, 0, 0, null);
+        
+    }
+
+    public void render_info(){
+        info_ctx.clearRect(0, 0, info_panel_width, info_panel_height);
         if(!game.msg_game_action.expired){
-            img_ctx.setFont(game.msg_game_action.msg_font);
-            img_ctx.setColor(game.msg_game_action.msg_font_color);
-            img_ctx.drawString(game.msg_game_action.get_message(), x, y);
+            info_ctx.drawString(game.msg_game_action.get_message(), game.msg_game_action.msg_font_size, game.msg_game_action.msg_font_size * 2);
             game.msg_game_action.message_duration();
-            img_ctx.setFont(font);
-            img_ctx.setColor(Color.WHITE);
         }
-        panel_ctx.drawImage(buffer, 0, 0, null);
-        panel2_ctx.setColor(Color.WHITE);
-        panel2_ctx.drawRect(30, 30, 50, 50);
+
+        info_ctx.drawRect(0, 0, info_panel_width - 1, info_panel_height - 1);
+        info_ctx.drawString("energy: " + game.info_player_stats.get_energy(), game.msg_game_action.msg_font_size , game.msg_game_action.msg_font_size * 4);
+        info_ctx.drawString("gold: " + game.info_player_stats.get_gold(), game.msg_game_action.msg_font_size , game.msg_game_action.msg_font_size * 6);
     }
 
     public void size_recalc(){
-        this.frame_width = frame.getWidth();
-        this.frame_height = frame.getHeight();
+        this.game_panel_width = frame.getWidth() - info_panel_width;
+        this.game_panel_height = frame.getHeight() ;
     }
 }
